@@ -4,6 +4,7 @@
 set -e
 
 # 生成静态文件
+npm install
 npm run build
 
 # 进入生成的文件夹
@@ -13,7 +14,7 @@ cd docs/.vuepress/dist
 # echo 'www.example.com' > CNAME
 
 git init
-git add -A
+git checkout -b gh-pages && git add .
 git commit -m 'deploy'
 
 # 如果发布到 https://<USERNAME>.github.io
