@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev docs",
-    "build": "npm run clean && vuepress build ./ --temp .temp",
-    "deploy": "bash deploy.sh"
+    "docs:build": "vuepress build docs"
   },
   "keywords": [],
   "author": "",
