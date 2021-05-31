@@ -117,11 +117,7 @@ lang: en-US
 
 **输出**
 
-<!--lint disable no-shortcut-reference-link no-undefined-references-->
-
 [[toc]]
-
-<!--lint enable no-shortcut-reference-link no-undefined-references-->
 
 目录（Table of Contents）的渲染可以通过  [`markdown.toc`](../config/README.md#markdown-toc) 选项来配置。
 
@@ -328,37 +324,35 @@ module.exports = {
 }
 ```
 
-<!-- TODO Support line numbers for specific fence block -->
-
 - 示例:
 
-<picture>
-  <source srcset="/line-numbers-desktop.png" media="(min-width: 719px)">
-  <img class="line-numbers-desktop-snap" alt="Image">
-</picture>
+``` bash{13,20,23}
+#!/usr/bin/env sh
 
-<picture>
-  <source srcset="/line-numbers-mobile.gif" media="(max-width: 719px)">
-  <img class="line-numbers-mobile-snap" alt="Image">
-</picture>
+# 确保脚本抛出遇到的错误
+set -e
 
-<style>
-  @media screen and (min-width:  719px) {
-    .line-numbers-mobile-snap {
-       display: none;
-    }
-  }
-  @media screen and (max-width:  719px) {
-    .line-numbers-desktop-snap {
-       display: none;
-    }
-    .line-numbers-mobile-snap {
-      max-width: none!important;
-      margin: 0 -1.5rem;
-      width: 100vw;
-    }
-  }
-</style>
+# 生成静态文件
+npm run docs:build
+
+# 进入生成的文件夹
+cd docs/.vuepress/dist
+
+# 如果是发布到自定义域名
+# echo 'www.example.com' > CNAME
+
+git init
+git add -A
+git commit -m 'deploy'
+
+# 如果发布到 https://<USERNAME>.github.io
+# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
+
+# 如果发布到 https://<USERNAME>.github.io/<REPO>
+# git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
+
+cd -
+```
 
 ## 导入代码段 <Badge text="beta" type="warning"/>
 
@@ -382,11 +376,11 @@ module.exports = {
 
 **输出**
 
-<!--lint disable strong-marker-->
-
-<<< @/../@vuepress/markdown/__tests__/fragments/snippet.js{2}
-
-<!--lint enable strong-marker-->
+``` js
+export default function () {
+  // ..
+}
+```
 
 ::: tip 注意
 由于代码段的导入将在 webpack 编译之前执行，因此你无法使用 webpack 中的路径别名，此处的 `@` 默认值是 `process.cwd()`。
@@ -403,19 +397,73 @@ module.exports = {
 
 **代码文件**
 
-<!--lint disable strong-marker-->
+``` js
+// #region snippet
+function foo () {
+  return ({
+    dest: '../../vuepress',
+    locales: {
+      '/': {
+        lang: 'en-US',
+        title: 'VuePress',
+        description: 'Vue-powered Static Site Generator'
+      },
+      '/zh/': {
+        lang: 'zh-CN',
+        title: 'VuePress',
+        description: 'Vue 驱动的静态网站生成器'
+      }
+    },
+    head: [
+      ['link', { rel: 'icon', href: `/logo.png` }],
+      ['link', { rel: 'manifest', href: '/manifest.json' }],
+      ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+      ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+      ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+      ['link', { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }],
+      ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
+      ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
+      ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
+    ]
+  })
+}
+// #endregion snippet
 
-<<< @/../@vuepress/markdown/__tests__/fragments/snippet-with-region.js
-
-<!--lint enable strong-marker-->
+export default foo
+```
 
 **输出**
 
-<!--lint disable strong-marker-->
-
-<<< @/../@vuepress/markdown/__tests__/fragments/snippet-with-region.js#snippet{1}
-
-<!--lint enable strong-marker-->
+``` js
+function foo () {
+  return ({
+    dest: '../../vuepress',
+    locales: {
+      '/': {
+        lang: 'en-US',
+        title: 'VuePress',
+        description: 'Vue-powered Static Site Generator'
+      },
+      '/zh/': {
+        lang: 'zh-CN',
+        title: 'VuePress',
+        description: 'Vue 驱动的静态网站生成器'
+      }
+    },
+    head: [
+      ['link', { rel: 'icon', href: `/logo.png` }],
+      ['link', { rel: 'manifest', href: '/manifest.json' }],
+      ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+      ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+      ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+      ['link', { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }],
+      ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
+      ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
+      ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
+    ]
+  })
+}
+```
 
 ## 进阶配置
 
