@@ -20,6 +20,8 @@ module.exports = {
                 text: '文档',
                 ariaLabel: '文档',
                 items: [
+                    { text: 'VuePress-Next', link: 'https://vuepress2.netlify.app/' },
+                    { text: 'VuePress', link: 'https://vuepress.vuejs.org/' },
                     { text: 'Vue.js 中文文档', link: 'https://cn.vuejs.org/' },
                     { text: 'Node.js 中文网', link: 'http://nodejs.cn/' },
                     { text: 'Node.js 中文文档', link: 'https://www.nodeapp.cn/' },
@@ -58,7 +60,7 @@ module.exports = {
                     }
                 ]
             },
-            { text: 'Github', link: 'https://vuepress.vuejs.org/' }
+            { text: 'Github', link: 'https://github.com/vuejs/vuepress' }
         ],
         sidebar: {
             '/pages/api/': getApiSidebar(),
